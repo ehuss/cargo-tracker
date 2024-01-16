@@ -10,8 +10,9 @@ use tracing::{debug, info, trace};
 const PROJECT_ID: &str = "PVT_kwDOAFLeec4AaJzI";
 
 fn main() -> Result<()> {
-    let filter = tracing_subscriber::EnvFilter::from_default_env()
-        .add_directive(tracing_subscriber::filter::LevelFilter::INFO.into());
+    let filter = tracing_subscriber::EnvFilter::builder()
+        .with_default_directive(tracing_subscriber::filter::LevelFilter::INFO.into())
+        .from_env()?;
     tracing_subscriber::fmt()
         .with_timer(tracing_subscriber::fmt::time::Uptime::default())
         .with_env_filter(filter)
