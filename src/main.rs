@@ -79,6 +79,9 @@ impl Tracker {
                     debug!("skipping item {item_id} value is already {new_value}");
                     return true;
                 }
+            } else if field_kind == "text" && new_value == "" {
+                // GitHub treats an empty string as not set.
+                return true;
             }
         }
         false
