@@ -447,7 +447,7 @@ fn set_field_value_text(
         return Ok(());
     }
 
-    debug!("setting {item_id} field {field_name} to {text}");
+    info!("setting {item_id} field {field_name} to {text}");
 
     let field_id = &tracker.field_ids[field_name].id;
     tracker.graphql(
@@ -486,6 +486,8 @@ fn set_field_value_single_select(
     if tracker.value_already_set(item_id, field_name, "name", option) {
         return Ok(());
     }
+
+    info!("setting {item_id} field {field_name} to {option}");
 
     let field_info = &tracker.field_ids[field_name];
     let field_id = &field_info.id;
@@ -532,7 +534,7 @@ fn set_field_value_date(
         return Ok(());
     }
 
-    debug!("setting {item_id} field {field_name} to {iso_date}");
+    info!("setting {item_id} field {field_name} to {iso_date}");
 
     let field_id = &tracker.field_ids[field_name].id;
     tracker.graphql(
@@ -966,7 +968,7 @@ fn sync_nominated(tracker: &Tracker) -> Result<()> {
 }
 
 fn archive(tracker: &Tracker, item_id: &str) -> Result<()> {
-    debug!("archiving item {item_id}");
+    info!("archiving item {item_id}");
     tracker.graphql(
         r#"mutation ($projectId: ID!, $id: ID!) {
           archiveProjectV2Item(input: {projectId: $projectId, itemId: $id}) {
